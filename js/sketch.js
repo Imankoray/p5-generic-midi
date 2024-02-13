@@ -1,14 +1,14 @@
 //////////////////////////
 /* EDIT VALUES BELOW TO MATCH DEVICE SLIDERS*/
-const CCSLIDER1 = 0;
-const CCSLIDER2 = 0;
-const CCSLIDER3 = 0;
-const CCSLIDER4 = 0;
-const CCSLIDER5 = 0;
-const CCSLIDER6 = 0;
-const CCSLIDER7 = 0;
-const CCSLIDER8 = 0;
-const CCSLIDER9 = 0;
+const CCSLIDER1 = 2;
+const CCSLIDER2 = 3;
+const CCSLIDER3 = 4;
+const CCSLIDER4 = 5;
+const CCSLIDER5 = 6;
+const CCSLIDER6 = 8;
+const CCSLIDER7 = 9;
+const CCSLIDER8 = 12;
+
 let myController;
 //////////////////////////
 // built in P5 function gets called at the beginning
@@ -57,7 +57,7 @@ function allCC(e) {
     let ratio = e.data[2] / 127
     switch (e.controller.number) {
         case CCSLIDER1: 
-            break;
+            break; 
         case CCSLIDER2: 
             break;
         case CCSLIDER3: 
@@ -76,6 +76,52 @@ function allCC(e) {
             break;
     }
 }
-function draw() {
+// function draw() {
 
-}
+//     const cellSize = 2.5;
+//     // let noiseScale =  100;
+    
+//     function setup() {
+//       createCanvas(600,  600, WEBGL);
+//       noStroke();
+//     }
+    
+    function draw() {
+      background(0);
+      //Edit these to change how fast sphere turns
+    
+      rotateX(frameCount *  0.05);
+      rotateY(frameCount *  0.1);
+    //Number of points on the sphere
+      let numPoints =  40; 
+      //Radius
+      let radius =  150; 
+    
+      //Loop points on the sphere
+      for (let i =  0; i < numPoints; i++) {
+        for (let j =  0; j < numPoints; j++) {
+          //Normalize current point's position to the unit sphere
+          let phi = map(i,  0, numPoints,  0, TWO_PI);
+          let theta = map(j,  0, numPoints,  0, PI);
+    
+          //Calculate the Cartesian coordinates from sphere coordinates
+          let x = radius * sin(theta) * cos(phi);
+          let y = radius * sin(theta) * sin(phi);
+          let z = radius * cos(theta);
+    
+        //Apply noise
+          // let c = map(noise(x * noiseScale, y * noiseScale, z * noiseScale),  0,  1,  0,  255);
+          //fill(c);
+          fill('#AAFF00');
+    
+          // Draw a sphere at the current position
+          push();
+          translate(x, y, z);
+          sphere(cellSize);
+          pop();
+        }
+      }
+    }
+
+
+
